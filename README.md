@@ -2,7 +2,7 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/orumad/laravel-redsys-gateway.svg?style=flat-square)](https://packagist.org/packages/orumad/laravel-redsys-gateway)
 [![Build Status](https://travis-ci.org/orumad/laravel-redsys-gateway.svg?branch=master)](https://travis-ci.org/orumad/laravel-redsys-gateway)
-[![StyleCI](https://github.styleci.io/repos/184770182/shield?branch=master)](https://github.styleci.io/repos/184770182)
+[![StyleCI](https://github.styleci.io/repos/277463084/shield?branch=master)](https://github.styleci.io/repos/277463084)
 [![Quality Score](https://img.shields.io/scrutinizer/g/orumad/laravel-redsys-gateway.svg?style=flat-square)](https://scrutinizer-ci.com/g/orumad/laravel-redsys-gateway)
 [![Total Downloads](https://img.shields.io/packagist/dt/orumad/laravel-redsys-gateway.svg?style=flat-square)](https://packagist.org/packages/orumad/laravel-redsys-gateway)
 
