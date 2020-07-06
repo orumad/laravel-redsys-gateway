@@ -10,7 +10,7 @@ Route::group(
         // Redsys Notification
         Route::post(
             'redsys/notification',
-            'RedsysNotificationController',
+            'RedsysNotificationController'
         )->name('redsys-notification');
     }
 );
