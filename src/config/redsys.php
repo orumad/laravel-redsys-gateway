@@ -20,6 +20,6 @@
         // Platform URL. During your develoment and test you can use the "testing" URL
         'url' => [
             'testing' => env('REDSYS_TESTING_URL', 'https://sis-t.redsys.es:25443/sis/realizarPago'),
-            'production' => env('REDSYS_PRODUCTION_URL', 'https://sis.redsys.es/sis/realizarPago')
-        ]
+            'production' => env('REDSYS_PRODUCTION_URL', 'https://sis.redsys.es/sis/realizarPago'),
+        ],
     ];

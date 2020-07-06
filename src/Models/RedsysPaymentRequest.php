@@ -3,133 +3,133 @@
 namespace Orumad\LaravelRedsys\Models;
 
 use Illuminate\Support\Carbon;
-use Orumad\LaravelRedsys\Helpers\CryptHelper;
 use Orumad\LaravelRedsys\Exceptions\PaymentParameterException;
+use Orumad\LaravelRedsys\Helpers\CryptHelper;
 
 class RedsysPaymentRequest implements \JsonSerializable
 {
     /**
-     * FUC code
+     * FUC code.
      * @var string
      */
     public $merchantCode;
     /**
-     * Terminal number
+     * Terminal number.
      * @var string
      */
     public $terminal;
     /**
-     * Transaction type
+     * Transaction type.
      * @var string
      */
     public $transactionType;
     /**
-     * Amount
+     * Amount.
      * @var string
      */
     public $amount;
     /**
-     * Currency code
+     * Currency code.
      * @var string
      */
     public $currency;
     /**
-     * Order number
+     * Order number.
      * @var string
      */
     public $order;
     /**
-     * URL for notifications
+     * URL for notifications.
      * @var string
      */
     public $merchantUrl;
     /**
-     * Product description
+     * Product description.
      * @var string
      */
     public $productDescription;
     /**
-     * Carholder fullname
+     * Carholder fullname.
      * @var string
      */
     public $carholder;
     /**
-     * URL for OK transactions
+     * URL for OK transactions.
      * @var string
      */
     public $urlOk;
     /**
-     * URL for KO transactions
+     * URL for KO transactions.
      * @var string
      */
     public $urlKo;
     /**
-     * Merchant name
+     * Merchant name.
      * @var string
      */
     public $merchantName;
     /**
-     * Customer language
+     * Customer language.
      * @var string
      */
     public $customerLanguage;
     /**
-     * Total amount (recurring fee)
+     * Total amount (recurring fee).
      * @var string
      */
     public $sumTotal;
     /**
-     * Merchant data
+     * Merchant data.
      * @var string
      */
     public $merchantData;
     /**
-     * Time period
+     * Time period.
      * @var string
      */
     public $dateFrecuency;
     /**
-     * Expiry date
+     * Expiry date.
      * @var null|Carbon
      */
     public $chargeExpiryDate;
     /**
-     * Authorization code
+     * Authorization code.
      * @var string
      */
     public $authorisationCode;
     /**
-     * Successive recurring operation date
+     * Successive recurring operation date.
      * @var null|Carbon
      */
     public $transactionDate;
     /**
-     * Reference
+     * Reference.
      * @var string
      */
     public $identifier;
     /**
-     * Group code
+     * Group code.
      * @var string
      */
     public $group;
     /**
-     * Payment without authentication
+     * Payment without authentication.
      * @var string
      */
     public $directPayment;
     /**
-     * Card number
+     * Card number.
      * @var string
      */
     public $pan;
     /**
-     * Card Expiration date
+     * Card Expiration date.
      * @var string
      */
     public $expiryDate;
     /**
-     * CVV2
+     * CVV2.
      * @var string
      */
     public $cvv2;
@@ -176,7 +176,7 @@ class RedsysPaymentRequest implements \JsonSerializable
         );
 
         return $parameters->filter(function ($value) {
-            return $value && !empty($value);
+            return $value && ! empty($value);
         })->toArray();
     }
 

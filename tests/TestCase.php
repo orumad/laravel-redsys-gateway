@@ -2,7 +2,7 @@
 
 namespace Orumad\LaravelRedsys\Tests;
 
-use \Orchestra\Testbench\TestCase as OrchestraTestCase;
+use Orchestra\Testbench\TestCase as OrchestraTestCase;
 
 abstract class TestCase extends OrchestraTestCase
 {
@@ -36,16 +36,16 @@ abstract class TestCase extends OrchestraTestCase
     protected function getPackageProviders($app)
     {
         return [
-            \Orumad\LaravelRedsys\LaravelRedsysServiceProvider::class
+            \Orumad\LaravelRedsys\LaravelRedsysServiceProvider::class,
         ];
     }
 
     public function setUpDatabase()
     {
-        include_once __DIR__ . '/../src/database/migrations/create_redsys_payments_table.php.stub';
+        include_once __DIR__.'/../src/database/migrations/create_redsys_payments_table.php.stub';
         (new \CreateRedsysPaymentsTable())->up();
 
-        include_once __DIR__ . '/../src/database/migrations/create_redsys_notifications_table.php.stub';
+        include_once __DIR__.'/../src/database/migrations/create_redsys_notifications_table.php.stub';
         (new \CreateRedsysNotificationsTable())->up();
     }
 }

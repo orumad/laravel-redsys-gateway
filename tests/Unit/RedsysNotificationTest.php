@@ -43,7 +43,7 @@ class RedsysNotificationTest extends TestCase
             'Ds_MerchantData' => '',
             'Ds_SecurePayment' => 0,
             'Ds_TransactionType' => config('redsys.dsTransactionType'),
-            'Ds_Card_Brand' => 1
+            'Ds_Card_Brand' => 1,
         ]));
 
         $paymentRequest = new RedsysPaymentRequest();
@@ -81,7 +81,7 @@ class RedsysNotificationTest extends TestCase
                 'id' => $redsysNotification->id,
                 'ds_order' => $redsysNotification->ds_order,
                 'ds_amount' => $redsysNotification->ds_amount,
-                'redsys_payment_id' => $this->redsysPayment->id
+                'redsys_payment_id' => $this->redsysPayment->id,
             ]
         );
     }

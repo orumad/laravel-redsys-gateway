@@ -13,7 +13,7 @@ class RedsysNotification extends Model
     protected $table = 'redsys_notifications';
 
     protected $casts = [
-        'ds_date_hour' => 'datetime'
+        'ds_date_hour' => 'datetime',
     ];
 
     private $originalMerchantParametersJson;

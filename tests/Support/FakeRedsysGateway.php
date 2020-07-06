@@ -5,10 +5,6 @@ namespace Orumad\LaravelRedsys\Tests\Support;
 use Orumad\LaravelRedsys\Helpers\CryptHelper;
 use Orumad\LaravelRedsys\Models\RedsysPaymentRequest;
 
-/**
- * Class FakeRedsysGateway
- * @package Xoborg\LaravelRedsys\Tests\Support
- */
 class FakeRedsysGateway
 {
     /**
@@ -29,7 +25,7 @@ class FakeRedsysGateway
         return [
             'Ds_SignatureVersion' => 'HMAC_SHA256_V1',
             'Ds_MerchantParameters' => $merchantParameters,
-            'Ds_Signature' => $signature
+            'Ds_Signature' => $signature,
         ];
     }
 
@@ -47,7 +43,7 @@ class FakeRedsysGateway
             'Ds_MerchantData' => $this->paymentRequest->merchantData,
             'Ds_SecurePayment' => 0,
             'Ds_TransactionType' => $this->paymentRequest->transactionType,
-            'Ds_Card_Brand' => 1
+            'Ds_Card_Brand' => 1,
         ]));
 
         return $merchantParameters;

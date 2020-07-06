@@ -26,7 +26,7 @@ class CryptHelper
 
     private static function getDataToEncrypt(string $data, float $length): string
     {
-        return $data . str_repeat("\0", $length - strlen($data));
+        return $data.str_repeat("\0", $length - strlen($data));
     }
 
     public static function toHmac256(string $ent, string $key): string

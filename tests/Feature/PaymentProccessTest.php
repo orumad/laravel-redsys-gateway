@@ -8,7 +8,7 @@ use Orumad\LaravelRedsys\Models\RedsysPaymentRequest;
 use Orumad\LaravelRedsys\Tests\Support\FakeRedsysGateway;
 use Orumad\LaravelRedsys\Tests\TestCase;
 
-class ProcesoPagoTest extends TestCase
+class PaymentProccessTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -42,7 +42,7 @@ class ProcesoPagoTest extends TestCase
             [
                 'id' => $redsysPayment->id,
                 'ds_merchant_order' => $paymentRequest->order,
-                'ds_merchant_amount' => $paymentRequest->amount
+                'ds_merchant_amount' => $paymentRequest->amount,
             ]
         );
 
@@ -52,7 +52,7 @@ class ProcesoPagoTest extends TestCase
                 'id' => $redsysNotification->id,
                 'ds_order' => $redsysNotification->ds_order,
                 'ds_amount' => $redsysNotification->ds_amount,
-                'redsys_payment_id' => $redsysPayment->id
+                'redsys_payment_id' => $redsysPayment->id,
             ]
         );
     }

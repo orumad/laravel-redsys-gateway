@@ -37,7 +37,7 @@ class RedsysPaymentRequestTest extends TestCase
             [
                 'id' => $redsysPayment->id,
                 'ds_merchant_order' => $paymentRequest->order,
-                'ds_merchant_amount' => $paymentRequest->amount
+                'ds_merchant_amount' => $paymentRequest->amount,
             ]
         );
     }
