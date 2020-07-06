@@ -1,4 +1,5 @@
 <?php
+
     return [
         // FUC merchant code (required)
         'dsMerchantCode' => env('DS_MERCHANT_CODE', '999008881'),

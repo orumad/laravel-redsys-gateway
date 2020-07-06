@@ -260,7 +260,7 @@ class RedsysPaymentRequest implements \JsonSerializable
         $redsysUrl = config('redsys.url.'.(app()->isProduction() ? 'production' : 'testing'));
 
         return
-            '<form name="redsys_form" action="'.$redsysUrl.'" method="POST">' .
+            '<form name="redsys_form" action="'.$redsysUrl.'" method="POST">'.
                 '<input type="hidden" name="Ds_SignatureVersion" value="'.config('redsys.dsSignatureVersion').'" />'.
                 '<input type="hidden" name="Ds_MerchantParameters" value="'.$this->getMerchantParameters().'" />'.
                 '<input type="hidden" name="Ds_Signature" value="'.$this->getMerchantSignature().'" />'.
