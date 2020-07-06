@@ -64,7 +64,7 @@ class RedsysNotificationTest extends TestCase
         $redsysNotification = new RedsysNotification();
         $redsysNotification->setUp($this->merchantParameters);
 
-        $this->assertTrue($redsysNotification->signature($signature));
+        $this->assertTrue($redsysNotification->isValidSignature($signature));
     }
 
     /** @test */
