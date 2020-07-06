@@ -1,0 +1,52 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateRedsysPaymentsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('redsys_payments', function (Blueprint $table) {
+            $table->id();
+
+            $table->string('ds_merchant_order');
+            $table->string('ds_merchant_transaction_type');
+            $table->integer('ds_merchant_currency');
+            $table->integer('ds_merchant_amount');
+            $table->string('ds_merchant_product_description')->nullable();
+            $table->string('ds_merchant_carholder')->nullable();
+            $table->string('ds_merchant_customer_language')->default(0);
+            $table->integer('ds_merchant_sum_total')->nullable();
+            $table->string('ds_merchant_merchantdata', 1024)->nullable();
+            $table->integer('ds_merchant_date_frecuency')->nullable();
+            $table->date('ds_merchant_charge_expiry_date')->nullable();
+            $table->integer('ds_merchant_authorisation_code')->nullable();
+            $table->date('ds_merchant_transaction_date')->nullable();
+            $table->integer('ds_merchant_identifier')->nullable();
+            $table->integer('ds_merchant_group')->nullable();
+            $table->integer('ds_merchant_direct_payment')->nullable();
+            $table->integer('ds_merchant_pan')->nullable();
+            $table->integer('ds_merchant_expiry_date')->nullable();
+            $table->integer('ds_merchant_ccv2')->nullable();
+
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('redsys_payments');
+    }
+}

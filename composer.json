@@ -1,0 +1,56 @@
+{
+    "name": "orumad/laravel-redsys-gateway",
+    "description": "Laravel package to integrate the spanish Redsys payment gateway",
+    "keywords": [
+        "orumad",
+        "redsys",
+        "redsys gateway",
+        "payment gateway",
+        "tpv",
+        "laravel package",
+        "laravel"
+    ],
+    "homepage": "https://github.com/orumad/laravel-spanish-validator",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Daniel Muñoz",
+            "email": "dev@danielmunoz.io",
+            "homepage": "https://danielmunoz.io",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.2.5",
+        "illuminate/support": "^7.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^5.0",
+        "phpunit/phpunit": "^8.5",
+        "scrutinizer/ocular": "master-dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "Orumad\\LaravelRedsys\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Orumad\\LaravelRedsys\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Orumad\\LaravelRedsys\\LaravelRedsysServiceProvider"
+            ]
+        }
+    }
+}
