@@ -3,7 +3,6 @@
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/orumad/laravel-redsys-gateway.svg?style=flat-square)](https://packagist.org/packages/orumad/laravel-redsys-gateway)
 [![Build Status](https://travis-ci.org/orumad/laravel-redsys-gateway.svg?branch=master)](https://travis-ci.org/orumad/laravel-redsys-gateway)
 [![StyleCI](https://github.styleci.io/repos/277463084/shield?branch=master)](https://github.styleci.io/repos/277463084)
-[![Quality Score](https://img.shields.io/scrutinizer/g/orumad/laravel-redsys-gateway.svg?style=flat-square)](https://scrutinizer-ci.com/g/orumad/laravel-redsys-gateway)
 [![Total Downloads](https://img.shields.io/packagist/dt/orumad/laravel-redsys-gateway.svg?style=flat-square)](https://packagist.org/packages/orumad/laravel-redsys-gateway)
 
 This package allows you to integrate the spanish payment gateway Redsys in your Laravel app. It can manage all the flow (requests / responses) needed to make payments throught the Redsys platform.
@@ -48,7 +47,7 @@ You can test as usual:
 vendor/bin/phpunit
 ```
 
-### Changelog
+## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
 
@@ -56,7 +55,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed re
 
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
-### Security
+## Security
 
 If you discover any security related issues, please email dev@danielmunoz.io instead of using the issue tracker.
 
