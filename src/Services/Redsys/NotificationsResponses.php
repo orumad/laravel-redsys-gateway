@@ -53,7 +53,7 @@ abstract class NotificationsResponses
         if ($responseCode == 909) {
             return 'Error de sistema';
         }
-        if ($responseCode == 913) {
+        if ($responseCode == 913 || $responseCode == 9051) {
             return 'Pedido repetido';
         }
         if ($responseCode == 944) {

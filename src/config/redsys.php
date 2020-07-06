@@ -1,7 +1,6 @@
 <?php
-
     return [
-        // FUC mercahnt code (required)
+        // FUC merchant code (required)
         'dsMerchantCode' => env('DS_MERCHANT_CODE', '999008881'),
         // Currency code ISO-4217 (required)
         'dsCurrencyCode' => env('DS_CURRENCY_CODE', \Orumad\LaravelRedsys\Services\Redsys\DsMerchantCurrency::EUR),
@@ -13,6 +12,8 @@
         'dsSignatureVersion' => env('DS_SIGNATURE_VERSION', 'HMAC_SHA256_V1'),
         // Customer language
         'dsCustomerLanguage' => env('DS_CUSTOMER_LANGUAGE', \Orumad\LaravelRedsys\Services\Redsys\DsMerchantCustomerLanguage::UNSPECIFIED),
+        // Merchant name (as appear in the payment receipt)
+        'dsMerchantName' => env('DS_MERCHANT_NAME', 'Business, Inc'),
         // KEY secret (AKA "clave de comercio"). You should access to the Administration module
         // of the Redsys platform and navigate to the "Consulta de datos de Comercio". Then you
         // can access the KEY SECRET clicking "Ver clave"

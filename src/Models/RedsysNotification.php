@@ -20,10 +20,10 @@ class RedsysNotification extends Model
 
     public function redsysPayment()
     {
-        return $this->belongsTo(RedsysPayment::class);
+        return $this->belongsTo(RedsysPayment::class, 'redsys_payment_id');
     }
 
-    public function signature(string $signature): bool
+    public function isValidSignature(string $signature): bool
     {
         $key = base64_decode(config('redsys.keySecret'));
         $key = CryptHelper::to3DES($this->ds_order, $key);

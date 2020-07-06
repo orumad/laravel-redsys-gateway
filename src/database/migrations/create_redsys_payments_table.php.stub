@@ -21,7 +21,7 @@ class CreateRedsysPaymentsTable extends Migration
             $table->integer('ds_merchant_currency');
             $table->integer('ds_merchant_amount');
             $table->string('ds_merchant_product_description')->nullable();
-            $table->string('ds_merchant_carholder')->nullable();
+            $table->string('ds_merchant_cardholder')->nullable();
             $table->string('ds_merchant_customer_language')->default(0);
             $table->integer('ds_merchant_sum_total')->nullable();
             $table->string('ds_merchant_merchantdata', 1024)->nullable();

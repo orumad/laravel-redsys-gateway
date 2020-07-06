@@ -49,10 +49,10 @@ class RedsysPaymentRequest implements \JsonSerializable
      */
     public $productDescription;
     /**
-     * Carholder fullname.
+     * Cardholder fullname.
      * @var string
      */
-    public $carholder;
+    public $cardholder;
     /**
      * URL for OK transactions.
      * @var string
@@ -141,6 +141,8 @@ class RedsysPaymentRequest implements \JsonSerializable
         $this->transactionType = config('redsys.dsTransactionType');
         $this->terminal = config('redsys.dsTerminalNumber');
         $this->customerLanguage = config('redsys.dsCustomerLanguage');
+        $this->merchantUrl = route('redsys-notification');
+        $this->merchantName = config('redsys.dsMerchantName');
     }
 
     public function jsonSerialize(): array
@@ -155,11 +157,11 @@ class RedsysPaymentRequest implements \JsonSerializable
                 'Ds_Merchant_Order' => $this->order,
                 'Ds_Merchant_MerchantURL' => $this->merchantUrl,
                 'Ds_Merchant_ProductDescription' => $this->productDescription,
-                'Ds_Merchant_Titular' => $this->carholder,
+                'Ds_Merchant_Titular' => $this->cardholder,
                 'Ds_Merchant_UrlOK' => $this->urlOk,
                 'Ds_Merchant_UrlKO' => $this->urlKo,
                 'Ds_Merchant_MerchantName' => $this->merchantName,
-                'Ds_Merchant_ConsumerLanguage' => $this->customerLanguaget,
+                'Ds_Merchant_ConsumerLanguage' => $this->customerLanguage,
                 'Ds_Merchant_SumTotal' => $this->sumTotal,
                 'Ds_Merchant_MerchantData' => $this->merchantData,
                 'Ds_Merchant_DateFrecuency' => $this->dateFrecuency,
@@ -233,7 +235,7 @@ class RedsysPaymentRequest implements \JsonSerializable
         $redsysPayment->ds_merchant_currency = $this->currency;
         $redsysPayment->ds_merchant_order = $this->order;
         $redsysPayment->ds_merchant_product_description = $this->productDescription;
-        $redsysPayment->ds_merchant_carholder = $this->carholder;
+        $redsysPayment->ds_merchant_cardholder = $this->cardholder;
         $redsysPayment->ds_merchant_customer_language = $this->customerLanguage;
         $redsysPayment->ds_merchant_sum_total = $this->sumTotal;
         $redsysPayment->ds_merchant_merchantdata = $this->merchantData;
@@ -251,5 +253,30 @@ class RedsysPaymentRequest implements \JsonSerializable
         $redsysPayment->save();
 
         return $redsysPayment;
+    }
+
+    public function htmlForm($buttonTitle = 'Submit'): string
+    {
+        $redsysUrl = config('redsys.url.'.(app()->isProduction() ? 'production' : 'testing'));
+
+        return
+            '<form name="redsys_form" action="'.$redsysUrl.'" method="POST">' .
+                '<input type="hidden" name="Ds_SignatureVersion" value="'.config('redsys.dsSignatureVersion').'" />'.
+                '<input type="hidden" name="Ds_MerchantParameters" value="'.$this->getMerchantParameters().'" />'.
+                '<input type="hidden" name="Ds_Signature" value="'.$this->getMerchantSignature().'" />'.
+                '<input type="submit" class="redsys-submit-button" value="'.$buttonTitle.'" />'.
+            '</form>';
+    }
+
+    public function jsonForm(): array
+    {
+        $redsysUrl = config('redsys.url.'.(app()->isProduction() ? 'production' : 'testing'));
+
+        return [
+            'url' => $redsysUrl,
+            'Ds_SignatureVersion' => config('redsys.dsSignatureVersion'),
+            'Ds_MerchantParameters' => $this->getMerchantParameters(),
+            'Ds_Signature' => $this->getMerchantSignature(),
+        ];
     }
 }

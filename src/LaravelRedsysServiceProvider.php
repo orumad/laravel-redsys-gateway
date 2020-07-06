@@ -8,6 +8,10 @@ class LaravelRedsysServiceProvider extends ServiceProvider
 {
     public function boot()
     {
+        // Routes
+        require __DIR__.'/routes/routes.php';
+
+        // Config file
         $this->publishes(
             [
                 __DIR__.'/config/redsys.php' => config_path('redsys.php'),
@@ -15,6 +19,7 @@ class LaravelRedsysServiceProvider extends ServiceProvider
             'config'
         );
 
+        // Migrations
         if (! class_exists('CreateRedsysPaymentsTable')
             && ! class_exists('CreateRedsysNotificationsTable')) {
             $this->publishes(
