@@ -11,6 +11,7 @@ class CryptHelper
     public static function to3DES(string $data, string $key): string
     {
         $dataLength = ceil(strlen($data) / 8) * 8;
+
         return substr(
             openssl_encrypt(
                 self::getDataToEncrypt($data, $dataLength),

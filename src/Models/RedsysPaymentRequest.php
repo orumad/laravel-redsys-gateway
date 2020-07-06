@@ -218,6 +218,7 @@ class RedsysPaymentRequest implements \JsonSerializable
         $key = base64_decode(config('redsys.keySecret'));
         $ent = $this->getMerchantParameters();
         $key = CryptHelper::to3DES($this->order, $key);
+
         return base64_encode(CryptHelper::toHmac256($ent, $key));
     }
 

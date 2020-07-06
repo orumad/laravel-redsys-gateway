@@ -54,6 +54,7 @@ class FakeRedsysGateway
         $key = base64_decode(config('redsys.keySecret'));
         $key = CryptHelper::to3DES($this->paymentRequest->order, $key);
         $res = CryptHelper::toHmac256($merchantParameters, $key);
+
         return strtr(base64_encode($res), '+/', '-_');
     }
 }
