@@ -3,9 +3,9 @@
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Request;
 use Orumad\LaravelRedsys\Controllers\RedsysNotificationController;
+use Orumad\LaravelRedsys\Helpers\FakeRedsysGateway;
 use Orumad\LaravelRedsys\Models\RedsysNotification;
 use Orumad\LaravelRedsys\Models\RedsysPaymentRequest;
-use Orumad\LaravelRedsys\Tests\Support\FakeRedsysGateway;
 
 it('receives notification', function () {
     // The request...

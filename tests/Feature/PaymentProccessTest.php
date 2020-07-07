@@ -3,9 +3,9 @@
 namespace Orumad\LaravelRedsys\Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Orumad\LaravelRedsys\Helpers\FakeRedsysGateway;
 use Orumad\LaravelRedsys\Models\RedsysNotification;
 use Orumad\LaravelRedsys\Models\RedsysPaymentRequest;
-use Orumad\LaravelRedsys\Tests\Support\FakeRedsysGateway;
 use Orumad\LaravelRedsys\Tests\TestCase;
 
 class PaymentProccessTest extends TestCase
