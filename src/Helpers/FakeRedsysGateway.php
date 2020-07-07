@@ -15,7 +15,7 @@ class FakeRedsysGateway
         string $responseCode
     ) {
         $this->paymentRequest = $paymentRequest;
-        $this->responseCode = $responseCode;
+        $this->responseCode = $responseCode = '0000';
     }
 
     public function notificationResponse(): array
