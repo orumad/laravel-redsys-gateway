@@ -15,4 +15,5 @@ class RedsysNotificationArrived
     {
         $this->notification = $notification;
     }
+
 }

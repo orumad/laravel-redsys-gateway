@@ -20,8 +20,8 @@ class RedsysNotificationController
                     RedsysPayment::where('ds_merchant_order', $redsysNotification->order)
                         ->firstOrFail();
 
-                    // Add notification to the payment (DB)
-                    $redsysPayment->redsysNotifications()->save($redsysNotification);
+                // Add notification to the payment (DB)
+                $redsysPayment->redsysNotifications()->save($redsysNotification);
 
                 // Emit event to notify the notification to the app
                 event(new RedsysNotificationArrived($redsysNotification));
