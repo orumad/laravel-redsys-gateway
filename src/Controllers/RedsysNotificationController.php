@@ -10,19 +10,21 @@ class RedsysNotificationController
     public function __invoke(
         RedsysNotification $redsysNotification
     ) {
-        $redsysNotification->setUp(request()->input('Ds_MerchantParameters'));
+        if ($parameters = request()->input('Ds_MerchantParameters')) {
+            $redsysNotification->setUp(request()->input('Ds_MerchantParameters'));
 
-        // The signature must be valid
-        if ($redsysNotification->isValidSignature(request()->input('Ds_Signature'))) {
-            $redsysPayment = RedsysPayment::where('DS_Merchan_Order', $redsysNotification->order)
+            // The signature must be valid
+            if ($redsysNotification->isValidSignature(request()->input('Ds_Signature'))) {
+                $redsysPayment = RedsysPayment::where('DS_Merchan_Order', $redsysNotification->order)
                 ->firstOrFail();
 
-            // Add notification to the payment (DB)
-            $redsysPayment->redsysNotifications()->save($redsysNotification);
+                // Add notification to the payment (DB)
+                $redsysPayment->redsysNotifications()->save($redsysNotification);
 
-            // Emit event to notify the notification to the app
+                // Emit event to notify the notification to the app
+            }
+
+            // Signature is invalid: do nothing
         }
-
-        // Signature is invalid: do nothing
     }
 }

@@ -5,7 +5,7 @@ namespace Orumad\LaravelRedsys\Controllers;
 use Orumad\LaravelRedsys\Models\RedsysNotification;
 use Orumad\LaravelRedsys\Models\RedsysPayment;
 
-class RedsysOkController
+class RedsysRedirectController
 {
     public RedsysNotification $redsysNotification;
     public RedsysPayment $redsysPayment;
