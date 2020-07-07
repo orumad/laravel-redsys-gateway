@@ -3,6 +3,7 @@
 namespace Orumad\LaravelRedsys\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Orumad\LaravelRedsys\Events\RedsysNotificationArrived;
 use Orumad\LaravelRedsys\Models\RedsysNotification;
 use Orumad\LaravelRedsys\Models\RedsysPayment;
@@ -26,6 +27,7 @@ class RedsysNotificationController
                 $redsysPayment->redsysNotifications()->save($redsysNotification);
 
                 // Emit event to notify the notification to the app
+                Log::info('preparando event');
                 event(new RedsysNotificationArrived($redsysNotification));
             }
 
