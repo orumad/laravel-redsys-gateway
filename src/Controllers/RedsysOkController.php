@@ -7,10 +7,10 @@ use Orumad\LaravelRedsys\Models\RedsysPayment;
 
 class RedsysOkController
 {
-    public RedsysNotification $redsysNotification;
-    public RedsysPayment $redsysPayment;
-    public int $responseCode;
-    public string $responseText;
+    protected RedsysPayment $redsysPayment;
+    protected RedsysNotification $redsysNotification;
+    protected int $responseCode;
+    protected string $responseText;
 
     public function __invoke()
     {
@@ -18,12 +18,11 @@ class RedsysOkController
         $redsysNotification->setUp(request()->input('Ds_MerchantParameters'));
 
         if ($redsysNotification->isValidSignature(request()->input('Ds_Signature'))) {
-            // dd($redsysNotification);
-
             $redsysPayment =
                 RedsysPayment::where('ds_merchant_order', $redsysNotification->ds_order)
                     ->firstOrFail();
 
+            // Load these protected properties to allow the child controller access them
             $this->redsysNotification = $redsysNotification;
             $this->redsysPayment = $redsysPayment;
             $this->responseCode = $redsysNotification->ds_response;

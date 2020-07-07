@@ -141,8 +141,8 @@ class RedsysPaymentRequest implements \JsonSerializable
         $this->transactionType = config('redsys.dsTransactionType');
         $this->terminal = config('redsys.dsTerminalNumber');
         $this->customerLanguage = config('redsys.dsCustomerLanguage');
-        $this->merchantUrl = route('redsys-notification');
         $this->merchantName = config('redsys.dsMerchantName');
+        $this->merchantUrl = route('redsys-notification');
     }
 
     public function jsonSerialize(): array
