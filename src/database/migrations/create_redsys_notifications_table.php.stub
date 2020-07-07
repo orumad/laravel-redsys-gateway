@@ -29,6 +29,7 @@ class CreateRedsysNotificationsTable extends Migration
             $table->integer('ds_customer_language')->nullable();
             $table->string('ds_card_type')->nullable();
             $table->string('ds_card_brand')->nullable();
+            $table->string('ds_merchant_identifier')->nullable();
             $table->foreignId('redsys_payment_id')->constrained();
 
             $table->timestamps();

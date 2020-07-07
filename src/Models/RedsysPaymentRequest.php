@@ -134,6 +134,15 @@ class RedsysPaymentRequest implements \JsonSerializable
      */
     public $cvv2;
 
+    public static function forTokenization(): self
+    {
+        $request = new self;
+
+        $request->identifier = 'REQUIRED';
+
+        return $request;
+    }
+
     public function __construct()
     {
         $this->merchantCode = config('redsys.dsMerchantCode');

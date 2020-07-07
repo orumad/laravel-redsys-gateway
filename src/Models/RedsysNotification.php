@@ -57,5 +57,6 @@ class RedsysNotification extends Model
         $this->ds_customer_language = Arr::get($merchantParameters, 'Ds_ConsumerLanguage') ?: DsMerchantCustomerLanguage::UNSPECIFIED;
         $this->ds_card_type = Arr::get($merchantParameters, 'Ds_Card_Type') ?: '';
         $this->ds_card_brand = Arr::get($merchantParameters, 'Ds_Card_Brand') ?: '';
+        $this->ds_merchant_identifier = Arr::get($merchantParameters, 'Ds_Merchant_Identifier') ?: '';
     }
 }
