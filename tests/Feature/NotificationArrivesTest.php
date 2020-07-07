@@ -43,5 +43,4 @@ it('receives notification', function () {
             'redsys_payment_id' => $redsysPayment->id,
         ]
     );
-
 });
