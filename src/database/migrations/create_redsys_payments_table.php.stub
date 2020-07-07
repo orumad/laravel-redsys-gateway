@@ -29,7 +29,7 @@ class CreateRedsysPaymentsTable extends Migration
             $table->date('ds_merchant_charge_expiry_date')->nullable();
             $table->integer('ds_merchant_authorisation_code')->nullable();
             $table->date('ds_merchant_transaction_date')->nullable();
-            $table->integer('ds_merchant_identifier')->nullable();
+            $table->stting('ds_merchant_identifier')->nullable();
             $table->integer('ds_merchant_group')->nullable();
             $table->integer('ds_merchant_direct_payment')->nullable();
             $table->unsignedBigInteger('ds_merchant_pan')->nullable();
