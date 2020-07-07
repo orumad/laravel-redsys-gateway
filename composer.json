@@ -21,12 +21,14 @@
         }
     ],
     "require": {
-        "php": "^7.2.5",
+        "php": "^7.3",
         "illuminate/support": "^7.0"
     },
     "require-dev": {
+        "nunomaduro/collision": "^5.0",
         "orchestra/testbench": "^5.0",
-        "phpunit/phpunit": "^8.5",
+        "pestphp/pest": "^0.2.3",
+        "phpunit/phpunit": "^9.0",
         "scrutinizer/ocular": "master-dev"
     },
     "autoload": {
@@ -52,5 +54,7 @@
                 "Orumad\\LaravelRedsys\\LaravelRedsysServiceProvider"
             ]
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
