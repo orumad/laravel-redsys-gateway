@@ -7,7 +7,7 @@ use Orumad\LaravelRedsys\Models\RedsysNotification;
 use Orumad\LaravelRedsys\Models\RedsysPaymentRequest;
 use Orumad\LaravelRedsys\Tests\Support\FakeRedsysGateway;
 
-it('receives notification', function() {
+it('receives notification', function () {
     // The request...
     $paymentRequest = new RedsysPaymentRequest();
     $paymentRequest->order = '0001';
