@@ -7,14 +7,15 @@ use Orumad\LaravelRedsys\Models\RedsysPaymentRequest;
 
 class FakeRedsysGateway
 {
-    /**
-     * @var RedsysPaymentRequest
-     */
-    private $paymentRequest;
+    private RedsysPaymentRequest $paymentRequest;
+    private string $responseCode;
 
-    public function __construct(RedsysPaymentRequest $paymentRequest)
-    {
+    public function __construct(
+        RedsysPaymentRequest $paymentRequest,
+        string $responseCode
+    ) {
         $this->paymentRequest = $paymentRequest;
+        $this->responseCode = $responseCode;
     }
 
     public function notificationResponse(): array
@@ -39,7 +40,9 @@ class FakeRedsysGateway
             'Ds_Order' => $this->paymentRequest->order,
             'Ds_MerchantCode' => $this->paymentRequest->merchantCode,
             'Ds_Terminal' => $this->paymentRequest->terminal,
-            'Ds_Response' => '0000',
+            'Ds_Response' => $this->responseCode,
+            // Fake Authorization code
+            'Ds_AuthorisationCode' => intval($this->responseCode) < 100 ? '' : mt_rand(100000, 999999),
             'Ds_MerchantData' => $this->paymentRequest->merchantData,
             'Ds_SecurePayment' => 0,
             'Ds_TransactionType' => $this->paymentRequest->transactionType,
