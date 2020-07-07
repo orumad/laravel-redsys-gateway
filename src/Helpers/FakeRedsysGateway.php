@@ -12,10 +12,10 @@ class FakeRedsysGateway
 
     public function __construct(
         RedsysPaymentRequest $paymentRequest,
-        string $responseCode
+        string $responseCode = '0000'
     ) {
         $this->paymentRequest = $paymentRequest;
-        $this->responseCode = $responseCode = '0000';
+        $this->responseCode = $responseCode;
     }
 
     public function notificationResponse(): array
