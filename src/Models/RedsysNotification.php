@@ -3,6 +3,7 @@
 namespace Orumad\LaravelRedsys\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Orumad\LaravelRedsys\Helpers\CryptHelper;
 use Orumad\LaravelRedsys\Services\Redsys\DsMerchantCustomerLanguage;
@@ -51,10 +52,10 @@ class RedsysNotification extends Model
         $this->ds_merchant_merchantdata = $merchantParameters['Ds_MerchantData'];
         $this->ds_secure_payment = $merchantParameters['Ds_SecurePayment'];
         $this->ds_transaction_type = $merchantParameters['Ds_TransactionType'];
-        $this->ds_card_country = array_key_exists('Ds_Card_Country', $merchantParameters) && $merchantParameters['Ds_Card_Country'] ?? '';
-        $this->ds_authorisation_code = array_key_exists('Ds_AuthorisationCode', $merchantParameters) && $merchantParameters['Ds_AuthorisationCode'] ?? '';
-        $this->ds_customer_language = array_key_exists('Ds_ConsumerLanguage', $merchantParameters) && $merchantParameters['Ds_ConsumerLanguage'] ?? DsMerchantCustomerLanguage::UNSPECIFIED;
-        $this->ds_card_type = array_key_exists('Ds_Card_Type', $merchantParameters) && $merchantParameters['Ds_Card_Type'] ?? '';
-        $this->ds_card_brand = array_key_exists('Ds_Card_Brand', $merchantParameters) && $merchantParameters['Ds_Card_Brand'] ?? '';
+        $this->ds_card_country = Arr::get($merchantParameters, 'Ds_Card_Country') ?: '';
+        $this->ds_authorisation_code = Arr::get($merchantParameters, 'Ds_AuthorisationCode') ?: '';
+        $this->ds_customer_language = Arr::get($merchantParameters, 'Ds_ConsumerLanguage') ?: DsMerchantCustomerLanguage::UNSPECIFIED;
+        $this->ds_card_type = Arr::get($merchantParameters, 'Ds_Card_Type') ?: '';
+        $this->ds_card_brand = Arr::get($merchantParameters, 'Ds_Card_Brand') ?: '';
     }
 }

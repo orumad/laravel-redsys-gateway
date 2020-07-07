@@ -33,7 +33,7 @@ class PaymentProccessTest extends TestCase
         $redsysNotification->setUp($notificationResponse['Ds_MerchantParameters']);
 
         $this->assertTrue($paymentRequest->order === $redsysNotification->ds_order);
-        $this->assertTrue($redsysNotification->signature($notificationResponse['Ds_Signature']));
+        $this->assertTrue($redsysNotification->isValidSignature($notificationResponse['Ds_Signature']));
 
         $redsysPayment->redsysNotifications()->save($redsysNotification);
 
