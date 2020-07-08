@@ -335,7 +335,7 @@ class RedsysPaymentRequest implements \JsonSerializable
             'Ds_MerchantParameters' => $this->getMerchantParameters(),
             'Ds_Signature' => $this->getMerchantSignature(),
         ]);
-        dd($response->body());
+
         return $response->successful();
     }
 
