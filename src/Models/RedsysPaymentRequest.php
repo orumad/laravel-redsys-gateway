@@ -115,7 +115,7 @@ class RedsysPaymentRequest implements \JsonSerializable
     public $group;
     /**
      * Payment without authentication.
-     * @var boolean
+     * @var bool
      */
     public $directPayment;
     /**

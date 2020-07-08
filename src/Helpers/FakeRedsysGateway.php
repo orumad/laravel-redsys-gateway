@@ -2,8 +2,8 @@
 
 namespace Orumad\LaravelRedsys\Helpers;
 
-use Orumad\LaravelRedsys\Models\RedsysPaymentRequest;
 use Illuminate\Support\Str;
+use Orumad\LaravelRedsys\Models\RedsysPaymentRequest;
 
 class FakeRedsysGateway
 {
