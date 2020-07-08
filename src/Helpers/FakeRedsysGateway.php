@@ -2,8 +2,8 @@
 
 namespace Orumad\LaravelRedsys\Helpers;
 
-use Orumad\LaravelRedsys\Helpers\CryptHelper;
 use Orumad\LaravelRedsys\Models\RedsysPaymentRequest;
+use Illuminate\Support\Str;
 
 class FakeRedsysGateway
 {
@@ -47,6 +47,7 @@ class FakeRedsysGateway
             'Ds_SecurePayment' => 0,
             'Ds_TransactionType' => $this->paymentRequest->transactionType,
             'Ds_Card_Brand' => 1,
+            'Ds_Merchant_Identifier' => $this->paymentRequest->identifier === 'REQUIRED' ? Str::random(40) : '',
         ]));
 
         return $merchantParameters;
