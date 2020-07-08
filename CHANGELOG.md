@@ -2,6 +2,15 @@
 
 All notable changes to `laravel-redsys-gateway` will be documented in this file
 
+## 1.0.5 - 2020-07-08
+
+- Changed field amount handling. Now it must be a double or float number.
+- Added support for _tokenization_ mode. You can request the customer+card+merchant identifier (token) that allow you to make 1-click purchases.
+- Minimum PHP version now is 7.4
+- Added a `FakeRedsysGateway` to fake Redsys notifications to help in development proccess.
+- Improve the migrations with better fields definition.
+
+
 ## 1.0.4 - 2020-07-07
 
 - Added `RedsysNotificationArrived` event to notify when a Redsys notification arrives.
