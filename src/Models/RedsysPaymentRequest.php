@@ -2,7 +2,9 @@
 
 namespace Orumad\LaravelRedsys\Models;
 
+use Exception;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Http;
 use Orumad\LaravelRedsys\Exceptions\PaymentParameterException;
 use Orumad\LaravelRedsys\Helpers\CryptHelper;
 
@@ -134,11 +136,40 @@ class RedsysPaymentRequest implements \JsonSerializable
      */
     public $cvv2;
 
+    private bool $_allowSubmit = false;
+
     public static function forTokenization(): self
     {
         $request = new self;
 
         $request->identifier = 'REQUIRED';
+
+        return $request;
+    }
+
+    public static function withToken(string $token): self
+    {
+        $request = new self;
+
+        $request->_allowSubmit = true;
+
+        $request->identifier = $token;
+        $request->directPayment = true;
+
+        return $request;
+    }
+
+    public static function makeRefund(RedsysPayment $redsysPayment): self
+    {
+        $request = new self;
+
+        $request->_allowSubmit = true;
+
+        $request->transactionType = '3';
+        $request->order = $redsysPayment->ds_merchant_order;
+        $request->amount = $redsysPayment->ds_merchant_amount;
+        $notification = $redsysPayment->redsysNotifications()->where('ds_response', 0)->first();
+        $request->authorisationCode = $notification->ds_authorisation_code;
 
         return $request;
     }
@@ -152,6 +183,8 @@ class RedsysPaymentRequest implements \JsonSerializable
         $this->customerLanguage = intval(config('redsys.dsCustomerLanguage'));
         $this->merchantName = config('redsys.dsMerchantName');
         $this->merchantUrl = route('redsys-notification');
+        $this->okUrl = config('redsys.okRoute') ? route(config('redsys.okRoute')) : null;
+        $this->koUrl = config('redsys.koRoute') ? route(config('redsys.koRoute')) : null;
     }
 
     public function jsonSerialize(): array
@@ -265,12 +298,15 @@ class RedsysPaymentRequest implements \JsonSerializable
         return $redsysPayment;
     }
 
+    public function redsysUrl(): string
+    {
+        return config('redsys.url.'.(app()->isProduction() ? 'production' : 'testing'));
+    }
+
     public function htmlForm($buttonTitle = 'Submit'): string
     {
-        $redsysUrl = config('redsys.url.'.(app()->isProduction() ? 'production' : 'testing'));
-
         return
-            '<form name="redsys_form" action="'.$redsysUrl.'" method="POST">'.
+            '<form name="redsys_form" action="'.$this->redsysUrl().'" method="POST">'.
                 '<input type="hidden" name="Ds_SignatureVersion" value="'.config('redsys.dsSignatureVersion').'" />'.
                 '<input type="hidden" name="Ds_MerchantParameters" value="'.$this->getMerchantParameters().'" />'.
                 '<input type="hidden" name="Ds_Signature" value="'.$this->getMerchantSignature().'" />'.
@@ -280,18 +316,31 @@ class RedsysPaymentRequest implements \JsonSerializable
 
     public function jsonForm(): array
     {
-        $redsysUrl = config('redsys.url.'.(app()->isProduction() ? 'production' : 'testing'));
-
         return [
-            'url' => $redsysUrl,
+            'url' => $this->redsysUrl(),
             'Ds_SignatureVersion' => config('redsys.dsSignatureVersion'),
             'Ds_MerchantParameters' => $this->getMerchantParameters(),
             'Ds_Signature' => $this->getMerchantSignature(),
         ];
     }
 
+    public function submit(): bool
+    {
+        if (! $this->_allowSubmit) {
+            throw new Exception('Submit method only can be used with direct payments (token)!');
+        }
+
+        $response = Http::asForm()->post($this->redsysUrl(), [
+            'Ds_SignatureVersion' => config('redsys.dsSignatureVersion'),
+            'Ds_MerchantParameters' => $this->getMerchantParameters(),
+            'Ds_Signature' => $this->getMerchantSignature(),
+        ]);
+        dd($response->body());
+        return $response->successful();
+    }
+
     private function numberToString($number)
     {
-        return round($number, 2) * 100;
+        return number_format(round($number, 2) * 100, 0, '', '');
     }
 }

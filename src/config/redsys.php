@@ -24,4 +24,6 @@
             'testing' => env('REDSYS_TESTING_URL', 'https://sis-t.redsys.es:25443/sis/realizarPago'),
             'production' => env('REDSYS_PRODUCTION_URL', 'https://sis.redsys.es/sis/realizarPago'),
         ],
+        'okRoute' => env('REDSYS_OK_ROUTE'),
+        'koRoute' => env('REDSYS_KO_ROUTE'),
     ];

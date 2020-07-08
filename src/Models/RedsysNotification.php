@@ -53,7 +53,7 @@ class RedsysNotification extends Model
         $this->ds_secure_payment = $merchantParameters['Ds_SecurePayment'];
         $this->ds_transaction_type = $merchantParameters['Ds_TransactionType'];
         $this->ds_card_country = Arr::get($merchantParameters, 'Ds_Card_Country');
-        $this->ds_authorisation_code = Arr::get($merchantParameters, 'Ds_AuthorisationCode');
+        $this->ds_authorisation_code = intval(Arr::get($merchantParameters, 'Ds_AuthorisationCode')) ?? null;
         $this->ds_customer_language = Arr::get($merchantParameters, 'Ds_ConsumerLanguage') ?: DsMerchantCustomerLanguage::UNSPECIFIED;
         $this->ds_card_type = Arr::get($merchantParameters, 'Ds_Card_Type') ?: '';
         $this->ds_card_brand = Arr::get($merchantParameters, 'Ds_Card_Brand') ?: '';
