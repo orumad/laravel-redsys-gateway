@@ -10,7 +10,7 @@ class RedsysPaymentRequest implements \JsonSerializable
 {
     /**
      * FUC code.
-     * @var string
+     * @var int
      */
     public $merchantCode;
     /**
@@ -25,12 +25,12 @@ class RedsysPaymentRequest implements \JsonSerializable
     public $transactionType;
     /**
      * Amount.
-     * @var string
+     * @var float
      */
     public $amount;
     /**
      * Currency code.
-     * @var string
+     * @var int
      */
     public $currency;
     /**
@@ -70,12 +70,12 @@ class RedsysPaymentRequest implements \JsonSerializable
     public $merchantName;
     /**
      * Customer language.
-     * @var string
+     * @var int
      */
     public $customerLanguage;
     /**
      * Total amount (recurring fee).
-     * @var string
+     * @var float
      */
     public $sumTotal;
     /**
@@ -85,7 +85,7 @@ class RedsysPaymentRequest implements \JsonSerializable
     public $merchantData;
     /**
      * Time period.
-     * @var string
+     * @var int
      */
     public $dateFrecuency;
     /**
@@ -95,7 +95,7 @@ class RedsysPaymentRequest implements \JsonSerializable
     public $chargeExpiryDate;
     /**
      * Authorization code.
-     * @var string
+     * @var int
      */
     public $authorisationCode;
     /**
@@ -115,22 +115,22 @@ class RedsysPaymentRequest implements \JsonSerializable
     public $group;
     /**
      * Payment without authentication.
-     * @var string
+     * @var boolean
      */
     public $directPayment;
     /**
      * Card number.
-     * @var string
+     * @var int
      */
     public $pan;
     /**
      * Card Expiration date.
-     * @var string
+     * @var int
      */
     public $expiryDate;
     /**
      * CVV2.
-     * @var string
+     * @var int
      */
     public $cvv2;
 
@@ -146,10 +146,10 @@ class RedsysPaymentRequest implements \JsonSerializable
     public function __construct()
     {
         $this->merchantCode = config('redsys.dsMerchantCode');
-        $this->currency = config('redsys.dsCurrencyCode');
+        $this->currency = intval(config('redsys.dsCurrencyCode'));
         $this->transactionType = config('redsys.dsTransactionType');
         $this->terminal = config('redsys.dsTerminalNumber');
-        $this->customerLanguage = config('redsys.dsCustomerLanguage');
+        $this->customerLanguage = intval(config('redsys.dsCustomerLanguage'));
         $this->merchantName = config('redsys.dsMerchantName');
         $this->merchantUrl = route('redsys-notification');
     }
@@ -161,7 +161,7 @@ class RedsysPaymentRequest implements \JsonSerializable
                 'Ds_Merchant_MerchantCode' => $this->merchantCode,
                 'Ds_Merchant_Terminal' => $this->terminal,
                 'Ds_Merchant_TransactionType' => $this->transactionType,
-                'Ds_Merchant_Amount' => $this->amount,
+                'Ds_Merchant_Amount' => $this->numberToString($this->amount),
                 'Ds_Merchant_Currency' => $this->currency,
                 'Ds_Merchant_Order' => $this->order,
                 'Ds_Merchant_MerchantURL' => $this->merchantUrl,
@@ -171,7 +171,7 @@ class RedsysPaymentRequest implements \JsonSerializable
                 'Ds_Merchant_UrlKO' => $this->urlKo,
                 'Ds_Merchant_MerchantName' => $this->merchantName,
                 'Ds_Merchant_ConsumerLanguage' => $this->customerLanguage,
-                'Ds_Merchant_SumTotal' => $this->sumTotal,
+                'Ds_Merchant_SumTotal' => $this->numberToString($this->sumTotal),
                 'Ds_Merchant_MerchantData' => $this->merchantData,
                 'Ds_Merchant_DateFrecuency' => $this->dateFrecuency,
                 'Ds_Merchant_ChargeExpiryDate' => optional($this->chargeExpiryDate)->format('Y-m-d'),
@@ -205,9 +205,10 @@ class RedsysPaymentRequest implements \JsonSerializable
             throw PaymentParameterException::invalidOrderFormat();
         }
 
-        if (preg_match('/^\d{1,12}$/', $this->amount) !== 1) {
-            throw PaymentParameterException::invalidAmount();
-        }
+        // if (preg_match('/^\d{1,12}$/', $this->amount) !== 1) {
+        //     throw PaymentParameterException::invalidAmount();
+        // }
+
         if (preg_match('/^\d{3,4}$/', $this->currency) !== 1) {
             throw PaymentParameterException::invalidCurrency();
         }
@@ -287,5 +288,10 @@ class RedsysPaymentRequest implements \JsonSerializable
             'Ds_MerchantParameters' => $this->getMerchantParameters(),
             'Ds_Signature' => $this->getMerchantSignature(),
         ];
+    }
+
+    private function numberToString($number)
+    {
+        return round($number, 2) * 100;
     }
 }

@@ -11,7 +11,7 @@ it('receives notification', function () {
     // The request...
     $paymentRequest = new RedsysPaymentRequest();
     $paymentRequest->order = '0001';
-    $paymentRequest->amount = 1075;
+    $paymentRequest->amount = 10.75;
     $paymentRequest->merchantUrl = 'http://www.example.com';
     $paymentRequest->productDescription = 'Example product';
     $paymentRequest->titular = 'Luke Skywalker';
@@ -21,11 +21,14 @@ it('receives notification', function () {
     // Gets notification response (as Redsys will send it)
     $fakeRedsysGateway = new FakeRedsysGateway($paymentRequest);
     $notificationResponse = $fakeRedsysGateway->notificationResponse();
+
     // Send response to the controller
     Event::fake();
     $request = Request::create('/redsys-notification', 'POST', $notificationResponse);
     $controller = new RedsysNotificationController;
     $controller($request, new RedsysNotification);
+
+    // Assertions
     $this->assertDatabaseHas(
         'redsys_payments',
         [
@@ -34,7 +37,6 @@ it('receives notification', function () {
             'ds_merchant_amount' => $paymentRequest->amount,
         ]
     );
-
     $this->assertDatabaseHas(
         'redsys_notifications',
         [

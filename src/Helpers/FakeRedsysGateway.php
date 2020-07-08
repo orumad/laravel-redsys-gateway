@@ -35,7 +35,7 @@ class FakeRedsysGateway
         $merchantParameters = base64_encode(json_encode([
             'Ds_Date' => now()->format('d/m/Y'),
             'Ds_Hour' => now()->format('H:i'),
-            'Ds_Amount' => $this->paymentRequest->amount,
+            'Ds_Amount' => round($this->paymentRequest->amount, 2) * 100,
             'Ds_Currency' => $this->paymentRequest->currency,
             'Ds_Order' => $this->paymentRequest->order,
             'Ds_MerchantCode' => $this->paymentRequest->merchantCode,

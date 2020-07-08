@@ -45,7 +45,7 @@ class RedsysNotification extends Model
         $merchantParameters = json_decode(urldecode(base64_decode(strtr($merchantParameters, '-_', '+/'))), true);
 
         $this->ds_date_hour = Carbon::createFromFormat('d/m/Y H:i', "{$merchantParameters['Ds_Date']} {$merchantParameters['Ds_Hour']}");
-        $this->ds_amount = $merchantParameters['Ds_Amount'];
+        $this->ds_amount = floatval($merchantParameters['Ds_Amount']) / 100;
         $this->ds_currency = $merchantParameters['Ds_Currency'];
         $this->ds_order = $merchantParameters['Ds_Order'];
         $this->ds_response = $merchantParameters['Ds_Response'];
@@ -53,10 +53,10 @@ class RedsysNotification extends Model
         $this->ds_secure_payment = $merchantParameters['Ds_SecurePayment'];
         $this->ds_transaction_type = $merchantParameters['Ds_TransactionType'];
         $this->ds_card_country = Arr::get($merchantParameters, 'Ds_Card_Country');
-        $this->ds_authorisation_code = Arr::get($merchantParameters, 'Ds_AuthorisationCode') ?: '';
+        $this->ds_authorisation_code = Arr::get($merchantParameters, 'Ds_AuthorisationCode');
         $this->ds_customer_language = Arr::get($merchantParameters, 'Ds_ConsumerLanguage') ?: DsMerchantCustomerLanguage::UNSPECIFIED;
         $this->ds_card_type = Arr::get($merchantParameters, 'Ds_Card_Type') ?: '';
         $this->ds_card_brand = Arr::get($merchantParameters, 'Ds_Card_Brand') ?: '';
-        $this->ds_merchant_identifier = Arr::get($merchantParameters, 'Ds_Merchant_Identifier') ?: '';
+        $this->ds_merchant_identifier = Arr::get($merchantParameters, 'Ds_Merchant_Identifier');
     }
 }
