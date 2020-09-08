@@ -226,7 +226,7 @@ class RedsysPaymentRequest implements \JsonSerializable
 
     private function validateMerchantParameters()
     {
-        if (preg_match('/^\d{9,}$/', $this->merchantCode) !== 1) {
+        if (preg_match('/^\d{8,9}$/', $this->merchantCode) !== 1) {
             throw PaymentParameterException::invalidMerchantCode();
         }
 
