@@ -183,8 +183,8 @@ class RedsysPaymentRequest implements \JsonSerializable
         $this->customerLanguage = intval(config('redsys.dsCustomerLanguage'));
         $this->merchantName = config('redsys.dsMerchantName');
         $this->merchantUrl = route('redsys-notification');
-        $this->okUrl = config('redsys.okRoute') ? route(config('redsys.okRoute')) : null;
-        $this->koUrl = config('redsys.koRoute') ? route(config('redsys.koRoute')) : null;
+        $this->okUrl = config('redsys.okRoute') ?? null;
+        $this->koUrl = config('redsys.koRoute') ?? null;
     }
 
     public function jsonSerialize(): array
