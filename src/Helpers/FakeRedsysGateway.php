@@ -2,9 +2,8 @@
 
 namespace Orumad\LaravelRedsys\Helpers;
 
-use Illuminate\Support\Str;
-use Orumad\LaravelRedsys\Models\RedsysPaymentRequest;
 use Faker;
+use Orumad\LaravelRedsys\Models\RedsysPaymentRequest;
 
 class FakeRedsysGateway
 {
@@ -58,7 +57,7 @@ class FakeRedsysGateway
             'Ds_Card_Country' => '724',
             'Ds_Card_Brand' => '1',
             'Ds_Merchant_Cof_Txnid' => $this->fakeCofTxnid(),
-            'Ds_ProcessedPayMethod' => '1'
+            'Ds_ProcessedPayMethod' => '1',
         ]));
 
         return $merchantParameters;
@@ -74,7 +73,7 @@ class FakeRedsysGateway
     }
 
     /**
-     * Fake Authorization code
+     * Fake Authorization code.
      */
     private function fakeAuthCode()
     {
@@ -84,7 +83,7 @@ class FakeRedsysGateway
     }
 
     /**
-     * Fake Merchant Identifier (token)
+     * Fake Merchant Identifier (token).
      */
     private function fakeMerchantIdentifier()
     {
@@ -94,7 +93,7 @@ class FakeRedsysGateway
     }
 
     /**
-     * Fake Card Number
+     * Fake Card Number.
      */
     private function fakeCardNumber()
     {
@@ -104,7 +103,7 @@ class FakeRedsysGateway
     }
 
     /**
-     * Fake COF TID (token)
+     * Fake COF TID (token).
      */
     private function fakeCofTxnid()
     {

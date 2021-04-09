@@ -4,10 +4,10 @@ namespace Orumad\LaravelRedsys\Models;
 
 use Exception;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
-use Orumad\LaravelRedsys\Helpers\CryptHelper;
+use Illuminate\Support\Facades\Log;
 use Orumad\LaravelRedsys\Exceptions\PaymentParameterException;
+use Orumad\LaravelRedsys\Helpers\CryptHelper;
 use Orumad\LaravelRedsys\Services\Redsys\DsMerchantTransactionType;
 
 class RedsysPaymentRequest implements \JsonSerializable
@@ -139,19 +139,19 @@ class RedsysPaymentRequest implements \JsonSerializable
     public $cvv2;
 
     /**
-     * COF Init
+     * COF Init.
      */
     public ?string $cofIni;
     /**
-     * COF type
+     * COF type.
      */
     public string $cofType;
     /**
-     * Merchant Except SCA (COF)
+     * Merchant Except SCA (COF).
      */
     public ?string $excepSCA;
     /**
-     * COF Tx NID
+     * COF Tx NID.
      */
     public ?string $cofTxnid;
 
