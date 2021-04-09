@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-redsys-gateway` will be documented in this file
 
+## 2.0.0 - 2021-04-09
+
+- Added support for PSD2 normative in COF/MIT transactions.
+- Added new migrations to modify existing tables with new columns for COF transactions and card data.
+- Updated FakerRedsysGateway for better tests support.
+- Updated tests.
+
+
 ## 1.0.5 - 2020-07-08
 
 - Changed field amount handling. Now it must be a double or float number.

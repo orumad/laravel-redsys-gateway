@@ -4,9 +4,11 @@ namespace Orumad\LaravelRedsys\Models;
 
 use Exception;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
-use Orumad\LaravelRedsys\Exceptions\PaymentParameterException;
 use Orumad\LaravelRedsys\Helpers\CryptHelper;
+use Orumad\LaravelRedsys\Exceptions\PaymentParameterException;
+use Orumad\LaravelRedsys\Services\Redsys\DsMerchantTransactionType;
 
 class RedsysPaymentRequest implements \JsonSerializable
 {
@@ -136,25 +138,46 @@ class RedsysPaymentRequest implements \JsonSerializable
      */
     public $cvv2;
 
+    /**
+     * COF Init
+     */
+    public ?string $cofIni;
+    /**
+     * COF type
+     */
+    public string $cofType;
+    /**
+     * Merchant Except SCA (COF)
+     */
+    public ?string $excepSCA;
+    /**
+     * COF Tx NID
+     */
+    public ?string $cofTxnid;
+
     private bool $_allowSubmit = false;
 
-    public static function forTokenization(): self
+    public static function forTokenization(string $cofType = null): self
     {
         $request = new self;
 
         $request->identifier = 'REQUIRED';
+        $request->cofIni = 'S';
+        $request->cofType = $cofType ?? config('redsys.dsMerchantCofType');
 
         return $request;
     }
 
-    public static function withToken(string $token): self
+    public static function withToken(string $token, string $cofTxnid = null): self
     {
         $request = new self;
 
         $request->_allowSubmit = true;
 
         $request->identifier = $token;
+        $request->cofTxnid = $cofTxnid ?? '999999999999999';
         $request->directPayment = true;
+        $request->excepSCA = 'MIT';
 
         return $request;
     }
@@ -165,11 +188,9 @@ class RedsysPaymentRequest implements \JsonSerializable
 
         $request->_allowSubmit = true;
 
-        $request->transactionType = '3';
+        $request->transactionType = DsMerchantTransactionType::AUTOMATIC_REFUND;
         $request->order = $redsysPayment->ds_merchant_order;
         $request->amount = $redsysPayment->ds_merchant_amount;
-        $notification = $redsysPayment->redsysNotifications()->where('ds_response', 0)->first();
-        $request->authorisationCode = $notification->ds_authorisation_code;
 
         return $request;
     }
@@ -182,9 +203,14 @@ class RedsysPaymentRequest implements \JsonSerializable
         $this->terminal = config('redsys.dsTerminalNumber');
         $this->customerLanguage = intval(config('redsys.dsCustomerLanguage'));
         $this->merchantName = config('redsys.dsMerchantName');
+        ray('Notification URL', route('redsys-notification'));
         $this->merchantUrl = route('redsys-notification');
-        $this->okUrl = config('redsys.okRoute') ?? null;
-        $this->koUrl = config('redsys.koRoute') ?? null;
+        $this->okUrl = config('redsys.okUrl') ?? config('redsys.okRoute') ? route(config('redsys.okRoute')) : null;
+        $this->koUrl = config('redsys.koUrl') ?? config('redsys.koRoute') ? route(config('redsys.koRoute')) : null;
+        $this->cofIni = null;
+        $this->cofType = config('redsys.dsMerchantCofType');
+        $this->cofTxnid = null;
+        $this->excepSCA = null;
     }
 
     public function jsonSerialize(): array
@@ -216,6 +242,10 @@ class RedsysPaymentRequest implements \JsonSerializable
                 'Ds_Merchant_Pan' => $this->pan,
                 'Ds_Merchant_ExpiryDate' => $this->expiryDate,
                 'Ds_Merchant_CVV2' => $this->cvv2,
+                'Ds_Merchant_Cof_Ini' => $this->cofIni,
+                'Ds_Merchant_Cof_Type' => $this->cofType,
+                'Ds_Merchant_Excep_Sca' => $this->excepSCA,
+                'Ds_Merchant_Cof_Txnid' => $this->cofTxnid,
             ]
         );
 
@@ -271,6 +301,8 @@ class RedsysPaymentRequest implements \JsonSerializable
     {
         $this->validateMerchantParameters();
 
+        ray('Parameters', json_decode(json_encode($this)));
+
         $redsysPayment = new RedsysPayment();
 
         $redsysPayment->ds_merchant_transaction_type = $this->transactionType;
@@ -292,6 +324,8 @@ class RedsysPaymentRequest implements \JsonSerializable
         $redsysPayment->ds_merchant_pan = $this->pan;
         $redsysPayment->ds_merchant_expiry_date = $this->expiryDate;
         $redsysPayment->ds_merchant_ccv2 = $this->cvv2;
+        // COF
+        $redsysPayment->ds_merchant_cof_txnid = $this->cofTxnid;
 
         $redsysPayment->save();
 
@@ -300,7 +334,7 @@ class RedsysPaymentRequest implements \JsonSerializable
 
     public function redsysUrl(): string
     {
-        return config('redsys.url.'.(app()->isProduction() ? 'production' : 'testing'));
+        return config('redsys.redsysUrl.'.(app()->isProduction() ? 'production' : 'testing'));
     }
 
     public function htmlForm($buttonTitle = 'Submit'): string
@@ -330,11 +364,15 @@ class RedsysPaymentRequest implements \JsonSerializable
             throw new Exception('Submit method only can be used with direct payments (token)!');
         }
 
+        ray('entrando');
         $response = Http::asForm()->post($this->redsysUrl(), [
             'Ds_SignatureVersion' => config('redsys.dsSignatureVersion'),
             'Ds_MerchantParameters' => $this->getMerchantParameters(),
             'Ds_Signature' => $this->getMerchantSignature(),
         ]);
+        ray('POST', $this->redsysUrl());
+        Log::info($response->body());
+        ray($response);
 
         return $response->successful();
     }

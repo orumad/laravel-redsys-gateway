@@ -43,6 +43,7 @@ class RedsysNotification extends Model
         $this->originalMerchantParametersJson = $merchantParameters;
 
         $merchantParameters = json_decode(urldecode(base64_decode(strtr($merchantParameters, '-_', '+/'))), true);
+        ray('Merchant Parameters', $merchantParameters);
 
         $this->ds_date_hour = Carbon::createFromFormat('d/m/Y H:i', "{$merchantParameters['Ds_Date']} {$merchantParameters['Ds_Hour']}");
         $this->ds_amount = floatval($merchantParameters['Ds_Amount']) / 100;
@@ -58,5 +59,10 @@ class RedsysNotification extends Model
         $this->ds_card_type = Arr::get($merchantParameters, 'Ds_Card_Type') ?: '';
         $this->ds_card_brand = Arr::get($merchantParameters, 'Ds_Card_Brand') ?: '';
         $this->ds_merchant_identifier = Arr::get($merchantParameters, 'Ds_Merchant_Identifier');
+        $this->ds_card_number = Arr::get($merchantParameters, 'Ds_Card_Number') ?: '';
+        $this->ds_expirydate = Arr::get($merchantParameters, 'Ds_ExpiryDate') ?: '';
+
+        // COF
+        $this->ds_merchant_cof_txnid = Arr::get($merchantParameters, 'Ds_Merchant_Cof_Txnid') ?: '';
     }
 }

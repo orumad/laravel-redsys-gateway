@@ -47,5 +47,11 @@ abstract class TestCase extends OrchestraTestCase
 
         include_once __DIR__.'/../src/database/migrations/create_redsys_notifications_table.php.stub';
         (new \CreateRedsysNotificationsTable())->up();
+
+        include_once __DIR__.'/../src/database/migrations/add_cof_field_to_redsys_notifications_table.php.stub';
+        (new \AddCofFieldToRedsysNotificationsTable())->up();
+
+        include_once __DIR__.'/../src/database/migrations/add_cof_field_to_redsys_payments_table.php.stub';
+        (new \AddCofFieldToRedsysPaymentsTable())->up();
     }
 }
