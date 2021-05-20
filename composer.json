@@ -49,6 +49,9 @@
         "sort-packages": true
     },
     "extra": {
+        "branch-alias": {
+            "dev-master": "develop"
+        },
         "laravel": {
             "providers": [
                 "Orumad\\LaravelRedsys\\LaravelRedsysServiceProvider"
