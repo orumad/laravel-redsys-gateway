@@ -14,129 +14,104 @@ class RedsysPaymentRequest implements \JsonSerializable
 {
     /**
      * FUC code.
-     * @var int
      */
-    public $merchantCode;
+    public int $merchantCode;
     /**
      * Terminal number.
-     * @var string
      */
-    public $terminal;
+    public string $terminal;
     /**
      * Transaction type.
-     * @var string
      */
-    public $transactionType;
+    public string $transactionType;
     /**
      * Amount.
-     * @var float
      */
-    public $amount;
+    public float $amount;
     /**
      * Currency code.
-     * @var int
      */
-    public $currency;
+    public int $currency;
     /**
      * Order number.
-     * @var string
      */
-    public $order;
+    public string $order;
     /**
      * URL for notifications.
-     * @var string
      */
-    public $merchantUrl;
+    public string $merchantUrl;
     /**
      * Product description.
-     * @var string
      */
-    public $productDescription;
+    public string $productDescription;
     /**
      * Cardholder fullname.
-     * @var string
      */
-    public $cardholder;
+    public string $cardholder;
     /**
      * URL for OK transactions.
-     * @var string
      */
-    public $urlOk;
+    public string $urlOk;
     /**
      * URL for KO transactions.
-     * @var string
      */
-    public $urlKo;
+    public string $urlKo;
     /**
      * Merchant name.
-     * @var string
      */
-    public $merchantName;
+    public string $merchantName;
     /**
      * Customer language.
-     * @var int
      */
-    public $customerLanguage;
+    public int $customerLanguage;
     /**
      * Total amount (recurring fee).
-     * @var float
      */
-    public $sumTotal;
+    public float $sumTotal;
     /**
      * Merchant data.
-     * @var string
      */
-    public $merchantData;
+    public string $merchantData;
     /**
      * Time period.
-     * @var int
      */
-    public $dateFrecuency;
+    public int $dateFrecuency;
     /**
      * Expiry date.
-     * @var null|Carbon
      */
-    public $chargeExpiryDate;
+    public ?Carbon $chargeExpiryDate;
     /**
      * Authorization code.
-     * @var int
      */
-    public $authorisationCode;
+    public int $authorisationCode;
     /**
      * Successive recurring operation date.
-     * @var null|Carbon
      */
-    public $transactionDate;
+    public ?Carbon $transactionDate;
     /**
      * Reference.
-     * @var string
      */
-    public $identifier;
+    public string $identifier;
     /**
      * Group code.
-     * @var string
      */
-    public $group;
+    public string $group;
     /**
      * Payment without authentication.
-     * @var bool
      */
-    public $directPayment;
+    public bool $directPayment;
     /**
      * Card number.
-     * @var int
      */
-    public $pan;
+    public int $pan;
     /**
      * Card Expiration date.
-     * @var int
      */
-    public $expiryDate;
+    public int $expiryDate;
     /**
      * CVV2.
-     * @var int
      */
-    public $cvv2;
+    public int $cvv2;
 
     /**
      * COF Init.
