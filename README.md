@@ -22,7 +22,7 @@ The package comes with two tables migrations used to store all the payments data
 php artisan vendor:publish --provider="Orumad\LaravelRedsys\LaravelRedsysServiceProvider" --tag="migrations"
 ```
 
-After that you can create the tables:
+After that you can create the tables,
 
 ```bash
 php artisan migrate
