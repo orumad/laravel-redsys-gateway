@@ -21,13 +21,13 @@
         }
     ],
     "require": {
-        "php": "^7.4",
+        "php": "^7.4|^8.0",
         "illuminate/support": "^7.0"
     },
     "require-dev": {
         "nunomaduro/collision": "^5.0",
         "orchestra/testbench": "^5.0",
-        "pestphp/pest": "^0.2.3",
+        "pestphp/pest": "^1.2.1",
         "phpunit/phpunit": "^9.0",
         "scrutinizer/ocular": "master-dev"
     },
