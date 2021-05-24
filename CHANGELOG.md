@@ -2,6 +2,19 @@
 
 All notable changes to `laravel-redsys-gateway` will be documented in this file
 
+## 1.0.8 - 2020-09-22
+
+
+## 1.0.7 - 2020-09-22
+
+- Fix merchant code validation rule (Admit 8 or 9 digits)
+
+
+## 1.0.6 - 2020-09-18
+
+- Fix wrong Redsys urls.
+
+
 ## 1.0.5 - 2020-07-08
 
 - Changed field amount handling. Now it must be a double or float number.
