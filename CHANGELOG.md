@@ -2,7 +2,16 @@
 
 All notable changes to `laravel-redsys-gateway` will be documented in this file
 
-## 1.0.8 - 2020-09-22
+## 2.0.0 - 2021-05-30
+
+- Support for new PSD2 EU directive.
+- Updated to Laravel 8.
+- Support for PHP8.
+
+
+## 1.0.8 - 2021-05-20
+
+- Change DEV brach to improve development proccess.
 
 
 ## 1.0.7 - 2020-09-22
