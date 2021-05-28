@@ -43,11 +43,11 @@ class RedsysPaymentRequest implements \JsonSerializable
     /**
      * Product description.
      */
-    public string $productDescription;
+    public string $productDescription = '';
     /**
      * Cardholder fullname.
      */
-    public string $cardholder;
+    public string $cardholder = '';
     /**
      * URL for OK transactions.
      */
