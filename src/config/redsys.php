@@ -15,15 +15,20 @@
         'dsCustomerLanguage' => env('DS_CUSTOMER_LANGUAGE', \Orumad\LaravelRedsys\Services\Redsys\DsMerchantCustomerLanguage::UNSPECIFIED),
         // Merchant name (as appear in the payment receipt)
         'dsMerchantName' => env('DS_MERCHANT_NAME', 'Business, Inc'),
+        // Merchant COF type (https://docsbs.necomplus.net/tpv-virtual/anexos/credenciales-en-archivo-cof/)
+        'dsMerchantCofType' => env('DS_MERCHANT_COF_TYPE', 'C'),
         // KEY secret (AKA "clave de comercio"). You should access to the Administration module
         // of the Redsys platform and navigate to the "Consulta de datos de Comercio". Then you
         // can access the KEY SECRET clicking "Ver clave"
         'keySecret' => env('REDSYS_KEY_SECRET', 'sq7HjrUOBfKmC576ILgskD5srU870gJ7'),
         // Platform URL. During your develoment and test you can use the "testing" URL
-        'url' => [
+        'redsysUrl' => [
             'testing' => env('REDSYS_TESTING_URL', 'https://sis-t.redsys.es:25443/sis/realizarPago'),
             'production' => env('REDSYS_PRODUCTION_URL', 'https://sis.redsys.es/sis/realizarPago'),
         ],
+        'notificationDomain' => env('REDSYS_NOTIFICATION_DOMAIN', env('APP_URL')),
+        'okUrl' => env('REDSYS_OK_URL'),
+        'koUrl' => env('REDSYS_KO_URL'),
         'okRoute' => env('REDSYS_OK_ROUTE'),
         'koRoute' => env('REDSYS_KO_ROUTE'),
     ];

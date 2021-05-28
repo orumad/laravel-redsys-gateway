@@ -20,16 +20,20 @@ class LaravelRedsysServiceProvider extends ServiceProvider
         );
 
         // Migrations
-        if (! class_exists('CreateRedsysPaymentsTable')
-            && ! class_exists('CreateRedsysNotificationsTable')) {
-            $this->publishes(
-                [
-                    __DIR__.'/database/migrations/create_redsys_payments_table.php.stub' => database_path('migrations/'.date('Y_m_d_His', time()).'_create_redsys_payments_table.php'),
-                    __DIR__.'/database/migrations/create_redsys_notifications_table.php.stub' => database_path('migrations/'.date('Y_m_d_His', time() + 1).'_create_redsys_notifications_table.php'),
-                ],
-                'migrations'
-            );
+        $migrations = [];
+        if (! class_exists('CreateRedsysPaymentsTable')) {
+            $migrations[__DIR__.'/database/migrations/create_redsys_payments_table.php.stub'] = database_path('migrations/'.date('Y_m_d_His', time()).'_create_redsys_payments_table.php');
         }
+        if (! class_exists('CreateRedsysNotificationsTable')) {
+            $migrations[__DIR__.'/database/migrations/create_redsys_notifications_table.php.stub'] = database_path('migrations/'.date('Y_m_d_His', time() + 1).'_create_redsys_notifications_table.php');
+        }
+        if (! class_exists('AddCofFieldToRedsysNotificationsTable')) {
+            $migrations[__DIR__.'/database/migrations/add_cof_field_to_redsys_notifications_table.php.stub'] = database_path('migrations/'.date('Y_m_d_His', time() + 1).'_add_cof_field_to_redsys_notifications_table.php');
+        }
+        if (! class_exists('AddCofFieldToRedsysPaymentsTable')) {
+            $migrations[__DIR__.'/database/migrations/add_cof_field_to_redsys_payments_table.php.stub'] = database_path('migrations/'.date('Y_m_d_His', time() + 1).'_add_cof_field_to_redsys_payments_table.php');
+        }
+        $this->publishes($migrations, 'migrations');
     }
 
     public function register()

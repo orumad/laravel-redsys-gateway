@@ -2,26 +2,14 @@
 
 All notable changes to `laravel-redsys-gateway` will be documented in this file
 
-## 2.0.0 - 2021-05-30
+## 2.0.0 - 2021-05-31
 
-- Support for new PSD2 EU directive.
+- Added support for PSD2 normative in COF/MIT transactions.
+- Added new migrations to modify existing tables with new columns for COF transactions and card data.
+- Updated FakerRedsysGateway for better tests support.
 - Updated to Laravel 8.
-- Support for PHP8.
-
-
-## 1.0.8 - 2021-05-20
-
-- Change DEV brach to improve development proccess.
-
-
-## 1.0.7 - 2020-09-22
-
-- Fix merchant code validation rule (Admit 8 or 9 digits)
-
-
-## 1.0.6 - 2020-09-18
-
-- Fix wrong Redsys urls.
+- Added support for PHP8.
+- Updated tests.
 
 
 ## 1.0.5 - 2020-07-08

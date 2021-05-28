@@ -1,0 +1,34 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class AddCofFieldToRedsysNotificationsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::table('redsys_notifications', function (Blueprint $table) {
+            $table->string('ds_merchant_cof_txnid', 15)->nullable()->after('ds_merchant_identifier');
+            $table->string('ds_card_number', 20)->nullable()->after('ds_merchant_cof_txnid');
+            $table->string('ds_expirydate', 4)->nullable()->after('ds_card_number');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::table('redsys_notifications', function (Blueprint $table) {
+            $table->dropColumn('ds_merchant_cof_txnid');
+        });
+    }
+}
