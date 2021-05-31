@@ -33,7 +33,6 @@ class LaravelRedsysServiceProvider extends ServiceProvider
         if (! class_exists('AddCofFieldToRedsysPaymentsTable')) {
             $migrations[__DIR__.'/database/migrations/add_cof_field_to_redsys_payments_table.php.stub'] = database_path('migrations/'.date('Y_m_d_His', time() + 1).'_add_cof_field_to_redsys_payments_table.php');
         }
-        ray('migrations', $migrations);
         $this->publishes($migrations, 'migrations');
     }
 

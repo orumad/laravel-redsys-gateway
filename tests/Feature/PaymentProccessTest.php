@@ -10,7 +10,7 @@ test('payment process works', function () {
     $paymentRequest->amount = 1075;
     $paymentRequest->merchantUrl = 'http://www.example.com';
     $paymentRequest->productDescription = 'Example product';
-    $paymentRequest->titular = 'Luke Skywalker';
+    $paymentRequest->cardholder = 'Luke Skywalker';
     $paymentRequest->merchantName = 'LUKAS Films, Inc';
 
     $redsysPayment = $paymentRequest->saveToDataBase();

@@ -35,27 +35,27 @@ class RedsysPaymentRequest implements \JsonSerializable
     /**
      * Order number.
      */
-    public string $order;
+    public ?string $order;
     /**
      * URL for notifications.
      */
-    public string $merchantUrl;
+    public ?string $merchantUrl;
     /**
      * Product description.
      */
-    public string $productDescription = '';
+    public ?string $productDescription;
     /**
      * Cardholder fullname.
      */
-    public string $cardholder = '';
+    public ?string $cardholder;
     /**
      * URL for OK transactions.
      */
-    public string $urlOk;
+    public ?string $urlOk;
     /**
      * URL for KO transactions.
      */
-    public string $urlKo;
+    public ?string $urlKo;
     /**
      * Merchant name.
      */
@@ -67,15 +67,15 @@ class RedsysPaymentRequest implements \JsonSerializable
     /**
      * Total amount (recurring fee).
      */
-    public float $sumTotal;
+    public ?float $sumTotal;
     /**
      * Merchant data.
      */
-    public string $merchantData;
+    public ?string $merchantData;
     /**
      * Time period.
      */
-    public int $dateFrecuency;
+    public ?int $dateFrecuency;
     /**
      * Expiry date.
      */
@@ -83,7 +83,7 @@ class RedsysPaymentRequest implements \JsonSerializable
     /**
      * Authorization code.
      */
-    public int $authorisationCode;
+    public ?int $authorisationCode;
     /**
      * Successive recurring operation date.
      */
@@ -91,27 +91,27 @@ class RedsysPaymentRequest implements \JsonSerializable
     /**
      * Reference.
      */
-    public string $identifier;
+    public ?string $identifier;
     /**
      * Group code.
      */
-    public string $group;
+    public ?string $group;
     /**
      * Payment without authentication.
      */
-    public bool $directPayment;
+    public bool $directPayment = false;
     /**
      * Card number.
      */
-    public int $pan;
+    public ?int $pan;
     /**
      * Card Expiration date.
      */
-    public int $expiryDate;
+    public ?int $expiryDate;
     /**
      * CVV2.
      */
-    public int $cvv2;
+    public ?int $cvv2;
 
     /**
      * COF Init.
@@ -173,23 +173,38 @@ class RedsysPaymentRequest implements \JsonSerializable
     public function __construct()
     {
         $this->merchantCode = config('redsys.dsMerchantCode');
-        $this->currency = intval(config('redsys.dsCurrencyCode'));
-        $this->transactionType = config('redsys.dsTransactionType');
         $this->terminal = config('redsys.dsTerminalNumber');
-        $this->customerLanguage = intval(config('redsys.dsCustomerLanguage'));
-        $this->merchantName = config('redsys.dsMerchantName');
-        ray('Notification URL', route('redsys-notification'));
+        $this->transactionType = config('redsys.dsTransactionType');
+        $this->currency = intval(config('redsys.dsCurrencyCode'));
+        $this->order = null;
         $this->merchantUrl = route('redsys-notification');
-        $this->okUrl = config('redsys.okUrl') ?? config('redsys.okRoute') ? route(config('redsys.okRoute')) : null;
-        $this->koUrl = config('redsys.koUrl') ?? config('redsys.koRoute') ? route(config('redsys.koRoute')) : null;
+        $this->productDescription = null;
+        $this->cardholder = null;
+        $this->urlOk = config('redsys.okUrl') ?? config('redsys.okRoute') ? route(config('redsys.okRoute')) : null;
+        $this->urlKo = config('redsys.koUrl') ?? config('redsys.koRoute') ? route(config('redsys.koRoute')) : null;
+        $this->merchantName = config('redsys.dsMerchantName');
+        $this->customerLanguage = intval(config('redsys.dsCustomerLanguage'));
+        $this->sumTotal = null;
+        $this->merchantData = null;
+        $this->dateFrecuency = null;
+        $this->chargeExpiryDate = null;
+        $this->authorisationCode = null;
+        $this->transactionDate = null;
+        $this->identifier = null;
+        $this->group = null;
+        $this->pan = null;
+        $this->expiryDate = null;
+        $this->cvv2 = null;
         $this->cofIni = null;
         $this->cofType = config('redsys.dsMerchantCofType');
         $this->cofTxnid = null;
         $this->excepSCA = null;
+        ray('construct', $this);
     }
 
     public function jsonSerialize(): array
     {
+        ray('urls', $this->urlKo, $this->urlOk);
         $parameters = collect(
             [
                 'Ds_Merchant_MerchantCode' => $this->merchantCode,
