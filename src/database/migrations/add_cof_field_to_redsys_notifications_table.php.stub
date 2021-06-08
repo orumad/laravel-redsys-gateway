@@ -29,6 +29,8 @@ class AddCofFieldToRedsysNotificationsTable extends Migration
     {
         Schema::table('redsys_notifications', function (Blueprint $table) {
             $table->dropColumn('ds_merchant_cof_txnid');
+            $table->dropColumn('ds_card_number');
+            $table->dropColumn('ds_expirydate');
         });
     }
 }

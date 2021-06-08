@@ -2,12 +2,12 @@
 
 namespace Orumad\LaravelRedsys\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
+use Illuminate\Database\Eloquent\Model;
 use Orumad\LaravelRedsys\Helpers\CryptHelper;
-use Orumad\LaravelRedsys\Services\Redsys\DsMerchantCustomerLanguage;
 use Orumad\LaravelRedsys\Services\Redsys\NotificationsResponses;
+use Orumad\LaravelRedsys\Services\Redsys\DsMerchantCustomerLanguage;
 
 class RedsysNotification extends Model
 {
