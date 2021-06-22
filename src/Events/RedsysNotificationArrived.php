@@ -15,6 +15,6 @@ class RedsysNotificationArrived
     public function __construct(RedsysNotification $notification)
     {
         $this->notification = $notification;
-        Log::info('constructor event');
+        Log::info('LaravelRedsys\Events\RedsysNotificationArrived: constructor');
     }
 }

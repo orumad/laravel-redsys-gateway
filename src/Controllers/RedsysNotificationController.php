@@ -27,7 +27,7 @@ class RedsysNotificationController
                 $redsysPayment->redsysNotifications()->save($redsysNotification);
 
                 // Emit event to notify the notification to the app
-                Log::info('preparando event');
+                Log::info('LaravelRedsys\Controllers\RedsysNotificationController: lanzando event...');
                 event(new RedsysNotificationArrived($redsysNotification));
             }
 
